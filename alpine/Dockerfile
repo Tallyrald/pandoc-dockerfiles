@@ -45,7 +45,7 @@ RUN test -n "$without_crossref" || \
     printf "extra-packages: pandoc-crossref\n" > cabal.project.local;
 
 # Additional projects to compile alongside pandoc
-ARG extra_packages="pandoc-cli pandoc-crossref"
+ARG extra_packages="pandoc-cli pandoc-crossref servant-0.19.1"
 
 # Build pandoc and pandoc-crossref. The `allow-newer` is required for
 # when pandoc-crossref has not been updated yet, but we want to build
