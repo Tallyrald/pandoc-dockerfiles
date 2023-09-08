@@ -53,6 +53,7 @@ ARG extra_packages="pandoc-cli pandoc-crossref"
 RUN cabal v2-update \
   && cabal v2-build \
       --allow-newer 'lib:pandoc' \
+      --constraint 'aeson ==2.1.2.1' \
       --disable-tests \
       --disable-bench \
       --jobs \

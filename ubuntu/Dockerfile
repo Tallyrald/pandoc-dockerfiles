@@ -69,6 +69,7 @@ RUN cabal v2-update \
       --disable-tests \
       --disable-bench \
       --jobs \
+      --constraint 'aeson ==2.1.2.1' \
       . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.
