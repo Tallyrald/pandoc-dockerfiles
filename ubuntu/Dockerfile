@@ -14,14 +14,14 @@ RUN apt-get -q --no-allow-insecure-repositories update \
                  software-properties-common \
          && add-apt-repository ppa:hvr/ghc \
          && apt-get install --assume-yes --no-install-recommends \
-                    ghc-9.4.4=\* \
-                    cabal-install-3.10=\* \
+                    ghc-8.8.4=\* \
+                    cabal-install-3.0=\* \
          && ln -s /opt/ghc/bin/ghc /usr/bin/ghc \
          && ln -s /opt/cabal/bin/cabal /usr/bin/cabal; \
      else \
          apt-get install --assume-yes --no-install-recommends \
-                 ghc=* \
-                 cabal-install=*; \
+                 ghc-9.4.4=* \
+                 cabal-install-3.10=*; \
      fi \
   && apt-get install --assume-yes --no-install-recommends \
        build-essential=* \
