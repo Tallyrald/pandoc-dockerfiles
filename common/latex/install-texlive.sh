@@ -20,18 +20,15 @@ if [ "$tlversion" = "$default_version" ]; then
     repository=
 else
     installer_url="\
-ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
+ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
     repository="\
-ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
+ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
 fi
 
-echo $installer_url
+echo "$installer_url"
 
 if [ "$installer_url" = "" ]; then
-    installer_url="\
-ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
-    repository="\
-ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
+    installer_url="ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
 fi
 
 # Download the install-tl perl script.
