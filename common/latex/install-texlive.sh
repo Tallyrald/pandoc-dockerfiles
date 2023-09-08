@@ -27,8 +27,15 @@ fi
 
 echo $installer_url
 
+if [ "$installer_url" = "" ]; then
+    installer_url="\
+ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
+    repository="\
+ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
+fi
+
 # Download the install-tl perl script.
-wget \
+wget --no-verbose \
      "$installer_url/$installer_archive" \
      "$installer_url/$installer_archive".sha512 \
      "$installer_url/$installer_archive".sha512.asc \
