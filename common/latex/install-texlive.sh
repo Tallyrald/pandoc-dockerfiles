@@ -25,8 +25,10 @@ ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
 ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
 fi
 
+echo $installer_url
+
 # Download the install-tl perl script.
-wget --no-verbose \
+wget \
      "$installer_url/$installer_archive" \
      "$installer_url/$installer_archive".sha512 \
      "$installer_url/$installer_archive".sha512.asc \
