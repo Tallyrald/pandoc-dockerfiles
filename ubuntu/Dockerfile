@@ -20,8 +20,8 @@ RUN apt-get -q --no-allow-insecure-repositories update \
          && ln -s /opt/cabal/bin/cabal /usr/bin/cabal; \
      else \
          apt-get install --assume-yes --no-install-recommends \
-                 ghc=9.4.* \
-                 cabal-install=3.10.*; \
+                 ghc=* \
+                 cabal-install=*; \
      fi \
   && apt-get install --assume-yes --no-install-recommends \
        build-essential=* \
