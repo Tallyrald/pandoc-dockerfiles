@@ -25,11 +25,13 @@ ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
 ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
 fi
 
-echo "$installer_url"
+echo "Installer URL: $installer_url"
 
 if [ "$installer_url" = "" ]; then
     installer_url="ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
 fi
+
+echo "Full URL for WGet: $installer_url/$installer_archive"
 
 # Download the install-tl perl script.
 wget --no-verbose \
