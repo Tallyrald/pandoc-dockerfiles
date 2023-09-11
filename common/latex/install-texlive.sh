@@ -20,15 +20,15 @@ if [ "$tlversion" = "$default_version" ]; then
     repository=
 else
     installer_url="\
-ftp://tug.org/historic/systems/texlive/$tlversion"
+http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
     repository="\
-ftp://tug.org/historic/systems/texlive/$tlversion"
+http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
 fi
 
 echo "Installer URL: $installer_url"
 
 if [ "$installer_url" = "" ]; then
-    installer_url="ftp://tug.org/historic/systems/texlive/$tlversion"
+    installer_url="http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
 fi
 
 echo "Full URL for WGet: $installer_url/$installer_archive"
