@@ -12,7 +12,7 @@ if [ "$tlversion" = "$default_version" ]; then
     # always use the mirror URL, we'd run into problems whenever we get
     # installer and signatures from different mirrors that are not 100%
     # in sync.
-    installer_url=$(wget --quiet --output-document=/dev/null \
+    installer_url=$(wget \
                          --server-response \
                          http://mirror.ctan.org/systems/texlive/tlnet/ \
                          2>&1 | \
@@ -20,18 +20,10 @@ if [ "$tlversion" = "$default_version" ]; then
     repository=
 else
     installer_url="\
-http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
+ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
     repository="\
-http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
+ftp://tug.org/historic/systems/texlive/$tlversion/tlnet-final"
 fi
-
-echo "Installer URL: $installer_url"
-
-if [ "$installer_url" = "" ]; then
-    installer_url="http://ctan.math.illinois.edu/systems/texlive/tlnet/$tlversion"
-fi
-
-echo "Full URL for WGet: $installer_url/$installer_archive"
 
 # Download the install-tl perl script.
 wget --no-verbose \
