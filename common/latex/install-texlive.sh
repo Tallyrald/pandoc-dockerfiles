@@ -12,9 +12,9 @@ if [ "$tlversion" = "$default_version" ]; then
     # always use the mirror URL, we'd run into problems whenever we get
     # installer and signatures from different mirrors that are not 100%
     # in sync.
-    installer_url=$(wget \
+    installer_url=$(wget --quiet --output-document=/dev/null \
                          --server-response \
-                         http://mirror.ctan.org/systems/texlive/tlnet/ \
+                         https://mirror.ctan.org/systems/texlive/tlnet/ \
                          2>&1 | \
                         sed -ne 's/.*Location: \(.*\)$/\1/p')
     repository=
