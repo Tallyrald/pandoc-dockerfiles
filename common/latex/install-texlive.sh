@@ -20,15 +20,15 @@ if [ "$tlversion" = "$default_version" ]; then
     repository=
 else
     installer_url="\
-ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
+ftp://tug.org/historic/systems/texlive/$tlversion"
     repository="\
-ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
+ftp://tug.org/historic/systems/texlive/$tlversion"
 fi
 
 echo "Installer URL: $installer_url"
 
 if [ "$installer_url" = "" ]; then
-    installer_url="ftp://tug.org/historic/systems/texlive/$tlversion/$installer_archive"
+    installer_url="ftp://tug.org/historic/systems/texlive/$tlversion"
 fi
 
 echo "Full URL for WGet: $installer_url/$installer_archive"
