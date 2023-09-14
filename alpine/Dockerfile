@@ -68,6 +68,12 @@ ARG extra_packages="pandoc-cli pandoc-crossref"
 # when pandoc-crossref has not been updated yet, but we want to build
 # anyway.
 RUN cabal v2-update \
+  && cabal v2-configure \
+      --disable-tests \
+      --enable-executable-static \
+      --ghc-options '-split-sections' \
+      --constraint 'aeson ==2.1.2.1' \
+      . $extra_packages \
   && cabal v2-build \
       --allow-newer 'lib:pandoc' \
       --disable-tests \

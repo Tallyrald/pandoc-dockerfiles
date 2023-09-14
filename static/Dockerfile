@@ -17,6 +17,9 @@ RUN apk --no-cache add \
         zlib-static
 
 COPY cabal.root.config /root/.cabal/config
+RUN cabal --version \
+  && ghc --version \
+  && cabal v2-update
 
 # Builder ###############################################################
 FROM static-builder-base as static-builder
