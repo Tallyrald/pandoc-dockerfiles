@@ -30,6 +30,12 @@ RUN apk --no-cache add \
         zlib-dev
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+ENV PATH=${PATH}:/root/.local/bin
+ENV PATH=${PATH}:/root/.ghcup/bin
+RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
+RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
+RUN bash -c "source $HOME/.bashrc"
+
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
