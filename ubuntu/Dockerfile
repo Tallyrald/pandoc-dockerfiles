@@ -12,7 +12,6 @@ RUN apt-get -q --no-allow-insecure-repositories update \
   && if [ $base_image_version = "focal" ]; then \
          apt-get install --assume-yes --no-install-recommends \
                  software-properties-common \
-     else \
      fi \
   && apt-get install --assume-yes --no-install-recommends \
        build-essential=* \
