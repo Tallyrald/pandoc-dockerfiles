@@ -1,5 +1,5 @@
 # Base ##################################################################
-ARG base_image_version=3.16
+ARG base_image_version=3.16.4
 FROM alpine:$base_image_version AS alpine-builder-base
 WORKDIR /app
 
@@ -30,9 +30,14 @@ RUN apk --no-cache add \
         yaml \
         zlib-dev
 
+# Install GHCup, GHC, Cabal
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+RUN ghcup install ghc 9.4.4
+RUN ghcup set ghc 9.4.4
+# Add ghcup to PATH
 ENV PATH=${PATH}:/root/.local/bin
 ENV PATH=${PATH}:/root/.ghcup/bin
+# Update Path to include Cabal and GHC exports
 RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
@@ -40,7 +45,7 @@ RUN bash -c "source $HOME/.bashrc"
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
   && ghc --version \
-  && cabal update
+  && cabal v2-update
 
 # Builder ###############################################################
 FROM alpine-builder-base as alpine-builder
@@ -67,8 +72,8 @@ ARG extra_packages="pandoc-cli pandoc-crossref"
 # Build pandoc and pandoc-crossref. The `allow-newer` is required for
 # when pandoc-crossref has not been updated yet, but we want to build
 # anyway.
-RUN cabal update \
-  && cabal build \
+RUN cabal v2-update \
+  && cabal v2-build \
       --allow-newer 'lib:pandoc' \
       --disable-tests \
       --disable-bench \

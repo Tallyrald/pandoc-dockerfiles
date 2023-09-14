@@ -1,5 +1,5 @@
 # Builder
-ARG base_image_version=3.17.5
+ARG base_image_version=3.14
 FROM alpine:$base_image_version AS static-builder-base
 WORKDIR /app
 
@@ -17,9 +17,6 @@ RUN apk --no-cache add \
         zlib-static
 
 COPY cabal.root.config /root/.cabal/config
-RUN cabal --version \
-  && ghc --version \
-  && cabal v2-update
 
 # Builder ###############################################################
 FROM static-builder-base as static-builder
@@ -41,11 +38,9 @@ RUN cabal v2-update \
       --disable-tests \
       --enable-executable-static \
       --ghc-options '-split-sections' \
-      --constraint 'aeson ==2.1.2.1' \
       . $extra_packages \
   && cabal v2-build \
       --jobs \
-      --constraint 'aeson ==2.1.2.1' \
       . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.

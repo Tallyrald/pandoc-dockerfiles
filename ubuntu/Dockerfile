@@ -31,20 +31,22 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        zlib1g-dev=1:1.2.11.* \
   && rm -rf /var/lib/apt/lists/*
 
+# Install GHCup, GHC, Cabal
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+RUN ghcup install ghc 9.4.4
+RUN ghcup set ghc 9.4.4
+# Add ghcup to PATH
 ENV PATH=${PATH}:/root/.local/bin
 ENV PATH=${PATH}:/root/.ghcup/bin
+# Update Path to include Cabal and GHC exports
 RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
 
-RUN ghcup install ghc 9.4.4
-RUN ghcup install cabal 3.10.1.0
-
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
   && ghc --version \
-  && cabal update
+  && cabal v2-update
 
 # Builder ###############################################################
 FROM ubuntu-builder-base as ubuntu-builder
@@ -69,8 +71,8 @@ RUN test -n "$without_crossref" || \
 # Build pandoc and pandoc-crossref. The `allow-newer` is required for
 # when pandoc-crossref has not been updated yet, but we want to build
 # anyway.
-RUN cabal update \
-  && cabal build \
+RUN cabal v2-update \
+  && cabal v2-build \
       --allow-newer 'lib:pandoc' \
       --disable-tests \
       --disable-bench \
