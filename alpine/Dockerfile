@@ -41,6 +41,7 @@ COPY ./alpine/freeze/pandoc-$pandoc_commit.project.freeze \
 WORKDIR /usr/src/pandoc
 # Add pandoc-crossref to project
 ARG without_crossref=
+ARG extra_packages="pandoc-cli pandoc-crossref"
 RUN test -n "$without_crossref" || \
     printf "extra-packages: pandoc-crossref\n" > cabal.project.local;
 
@@ -164,7 +165,7 @@ RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
+RUN pip --no-cache-dir install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 ARG TEMPLATES_DIR=/.pandoc/templates

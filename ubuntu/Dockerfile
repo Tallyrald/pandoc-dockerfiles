@@ -70,7 +70,6 @@ RUN cabal v2-update \
       --disable-bench \
       --jobs \
       --constraint 'aeson ==2.1.2.1' \
-      --minimize-conflict-set \
       . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.
@@ -180,14 +179,16 @@ COPY common/extra/requirements.txt /root/extra_requirements.txt
 
 RUN apt-get -q --no-allow-insecure-repositories update \
   && apt-get install --assume-yes --no-install-recommends \
-        python3-pip
+        pipx
+
+RUN pipx ensurepath
 
 RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
     xargs tlmgr install \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
+RUN pipx --no-cache-dir install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 # Templates
