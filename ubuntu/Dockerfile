@@ -33,8 +33,6 @@ RUN apt-get -q --no-allow-insecure-repositories update \
 
 # Install GHCup, GHC, Cabal
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-RUN ghcup install ghc 9.4.4
-RUN ghcup set ghc 9.4.4
 # Add ghcup to PATH
 ENV PATH=${PATH}:/root/.local/bin
 ENV PATH=${PATH}:/root/.ghcup/bin
@@ -42,6 +40,9 @@ ENV PATH=${PATH}:/root/.ghcup/bin
 RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
+
+RUN ghcup install ghc 9.4.4
+RUN ghcup set ghc 9.4.4
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
