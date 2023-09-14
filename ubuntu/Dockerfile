@@ -38,7 +38,8 @@ RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
 
-RUN ghcup install ghc --set 9.4.4
+RUN ghcup install ghc 9.4.4
+RUN ghcup install cabal 3.10.1.0
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
