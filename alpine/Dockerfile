@@ -37,10 +37,12 @@ RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
 
+RUN ghcup install ghc --set 9.4.4
+
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
   && ghc --version \
-  && cabal v2-update
+  && cabal update
 
 # Builder ###############################################################
 FROM alpine-builder-base as alpine-builder
@@ -67,14 +69,8 @@ ARG extra_packages="pandoc-cli pandoc-crossref"
 # Build pandoc and pandoc-crossref. The `allow-newer` is required for
 # when pandoc-crossref has not been updated yet, but we want to build
 # anyway.
-RUN cabal v2-update \
-  && cabal v2-configure \
-      --disable-tests \
-      --enable-executable-static \
-      --ghc-options '-split-sections' \
-      --constraint 'aeson ==2.1.2.1' \
-      . $extra_packages \
-  && cabal v2-build \
+RUN cabal update \
+  && cabal build \
       --allow-newer 'lib:pandoc' \
       --disable-tests \
       --disable-bench \
