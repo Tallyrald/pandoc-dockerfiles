@@ -1,5 +1,5 @@
 # Base ##################################################################
-ARG base_image_version=3.17.5
+ARG base_image_version=3.16
 FROM alpine:$base_image_version AS alpine-builder-base
 WORKDIR /app
 
@@ -36,9 +36,6 @@ ENV PATH=${PATH}:/root/.ghcup/bin
 RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
-
-RUN ghcup install ghc 9.4.4
-RUN ghcup install cabal 3.10.1.0
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
@@ -183,7 +180,7 @@ RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN pip --no-cache-dir install -r /root/extra_requirements.txt \
+RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 ARG TEMPLATES_DIR=/.pandoc/templates
