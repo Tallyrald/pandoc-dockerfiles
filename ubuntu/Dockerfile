@@ -28,7 +28,7 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        libncurses5 \
        libtinfo5 \
        pkg-config=* \
-       zlib1g-dev=1:1.2.13.* \
+       zlib1g-dev=1:1.2.11.* \
   && rm -rf /var/lib/apt/lists/*
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
