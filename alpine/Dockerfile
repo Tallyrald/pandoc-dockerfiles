@@ -112,8 +112,6 @@ RUN apk --no-cache add \
         tar \
         xz
 
-RUN apk --no-cache add wget
-
 # TeXLive binaries location
 ARG texlive_bin="/opt/texlive/texdir/bin"
 

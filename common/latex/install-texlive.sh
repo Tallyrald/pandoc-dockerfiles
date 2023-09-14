@@ -14,7 +14,7 @@ if [ "$tlversion" = "$default_version" ]; then
     # in sync.
     installer_url=$(wget --quiet --output-document=/dev/null \
                          --server-response \
-                         https://mirror.ctan.org/systems/texlive/tlnet/ \
+                         http://mirror.ctan.org/systems/texlive/tlnet/ \
                          2>&1 | \
                         sed -ne 's/.*Location: \(.*\)$/\1/p')
     repository=
