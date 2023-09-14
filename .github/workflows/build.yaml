@@ -27,6 +27,8 @@ jobs:
       stacks: ${{ steps.config.outputs.stacks }}
       build: ${{ steps.config.outputs.build }}
     steps:
+      - name: Tune GitHub-hosted runner network
+        uses: smorimoto/tune-github-hosted-runner-network@v1
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.after }}
@@ -100,6 +102,8 @@ jobs:
       STACK: ${{ matrix.stack }}
 
     steps:
+      - name: Tune GitHub-hosted runner network
+        uses: smorimoto/tune-github-hosted-runner-network@v1
       - uses: actions/checkout@v3
 
       - name: Show config
