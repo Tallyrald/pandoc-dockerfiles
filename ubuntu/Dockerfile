@@ -12,16 +12,7 @@ RUN apt-get -q --no-allow-insecure-repositories update \
   && if [ $base_image_version = "focal" ]; then \
          apt-get install --assume-yes --no-install-recommends \
                  software-properties-common \
-         && add-apt-repository ppa:hvr/ghc \
-         && apt-get install --assume-yes --no-install-recommends \
-                    ghc-8.8.4=\* \
-                    cabal-install-3.0=\* \
-         && ln -s /opt/ghc/bin/ghc /usr/bin/ghc \
-         && ln -s /opt/cabal/bin/cabal /usr/bin/cabal; \
      else \
-         apt-get install --assume-yes --no-install-recommends \
-                 ghc=* \
-                 cabal-install=*; \
      fi \
   && apt-get install --assume-yes --no-install-recommends \
        build-essential=* \
@@ -29,11 +20,19 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        curl=* \
        fakeroot=* \
        git \
+       libffi-dev \
+       libffi8ubuntu1 \
        libgmp-dev=2:6.* \
+       libgmp10 \
        liblua$lua_version-dev=* \
+       libncurses-dev \
+       libncurses5 \
+       libtinfo5 \
        pkg-config=* \
        zlib1g-dev=1:1.2.13.* \
   && rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \

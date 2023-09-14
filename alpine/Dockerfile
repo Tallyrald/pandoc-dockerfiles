@@ -7,18 +7,29 @@ ARG lua_version=5.4
 RUN apk --no-cache add \
         alpine-sdk \
         bash \
+        binutils-gold \
         ca-certificates \
-        cabal \
+        curl \
         fakeroot \
-        ghc \
+        gcc \
         git \
         gmp-dev \
+        g++ \
+        libc-dev \
         libffi \
         libffi-dev \
         lua$lua_version-dev \
+        make \
+        musl-dev \
+        ncurses-dev \
+        perl \
         pkgconfig \
+        tar \
+        xz \
         yaml \
         zlib-dev
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
