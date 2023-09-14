@@ -14,8 +14,8 @@ RUN apt-get -q --no-allow-insecure-repositories update \
                  software-properties-common \
          && add-apt-repository ppa:hvr/ghc \
          && apt-get install --assume-yes --no-install-recommends \
-                    ghc-8.8.4=\* \
-                    cabal-install-3.0=\* \
+                    ghc-9.0.2=\* \
+                    cabal-install-3.4.1=\* \
          && ln -s /opt/ghc/bin/ghc /usr/bin/ghc \
          && ln -s /opt/cabal/bin/cabal /usr/bin/cabal; \
      else \
@@ -32,7 +32,7 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        libgmp-dev=2:6.* \
        liblua$lua_version-dev=* \
        pkg-config=* \
-       zlib1g-dev=1:1.2.11.* \
+       zlib1g-dev=1:1.2.13.* \
   && rm -rf /var/lib/apt/lists/*
 
 COPY cabal.root.config /root/.cabal/config
