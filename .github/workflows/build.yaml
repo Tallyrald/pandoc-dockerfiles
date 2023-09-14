@@ -5,6 +5,7 @@ on:
     # Build and publish: configure build via commit message
     branches:
       - testing
+      - testing2
     paths-ignore:
       - '.dockerignore'
       - '.github/FUNDING.yml'
