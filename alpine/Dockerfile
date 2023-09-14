@@ -25,6 +25,7 @@ RUN apk --no-cache add \
         perl \
         pkgconfig \
         tar \
+        wget \
         xz \
         yaml \
         zlib-dev
@@ -35,7 +36,6 @@ ENV PATH=${PATH}:/root/.ghcup/bin
 RUN bash -c "echo PATH="$HOME/.local/bin:$PATH" >> $HOME/.bashrc"
 RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $HOME/.bashrc"
 RUN bash -c "source $HOME/.bashrc"
-
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
@@ -58,7 +58,6 @@ COPY ./alpine/freeze/pandoc-$pandoc_commit.project.freeze \
 WORKDIR /usr/src/pandoc
 # Add pandoc-crossref to project
 ARG without_crossref=
-ARG extra_packages="pandoc-cli pandoc-crossref"
 RUN test -n "$without_crossref" || \
     printf "extra-packages: pandoc-crossref\n" > cabal.project.local;
 
@@ -75,7 +74,6 @@ RUN cabal v2-update \
       --disable-bench \
       --jobs \
       --constraint 'aeson ==2.1.2.1' \
-      --minimize-conflict-set \
       . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.
