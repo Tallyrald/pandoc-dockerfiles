@@ -138,6 +138,7 @@ FROM ubuntu-core as ubuntu-latex
 RUN apt-get -q --no-allow-insecure-repositories update \
   && DEBIAN_FRONTEND=noninteractive \
      apt-get install --assume-yes --no-install-recommends \
+        curl \
         fontconfig \
         gnupg \
         gzip \
