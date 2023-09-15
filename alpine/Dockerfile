@@ -25,7 +25,6 @@ RUN apk --no-cache add \
         perl \
         pkgconfig \
         tar \
-        wget \
         xz \
         yaml \
         zlib-dev
@@ -134,7 +133,6 @@ RUN apk --no-cache add \
         gzip \
         perl \
         tar \
-        wget \
         xz
 
 # TeXLive binaries location
@@ -198,4 +196,4 @@ RUN mkdir -p ${TEMPLATES_DIR} && \
 # eisvogel
 ARG EISVOGEL_REPO=https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template
 ARG EISVOGEL_VERSION=v2.4.0
-RUN wget ${EISVOGEL_REPO}/${EISVOGEL_VERSION}/eisvogel.tex -O ${TEMPLATES_DIR}/eisvogel.latex
+RUN curl -o ${TEMPLATES_DIR}/eisvogel.latex ${EISVOGEL_REPO}/${EISVOGEL_VERSION}/eisvogel.tex
