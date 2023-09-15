@@ -159,7 +159,7 @@ COPY common/latex/packages.txt /root/packages.txt
 ARG texlive_version=
 
 # Request musl precompiled binary access
-RUN echo "nameserver 1.1.1.1" > /etc/resolv.conf && echo "binary_x86_64-linuxmusl 1" >> /root/texlive.profile \
+RUN echo "binary_x86_64-linuxmusl 1" >> /root/texlive.profile \
   && /root/install-texlive.sh $texlive_version \
   && sed -e 's/ *#.*$//' -e '/^ *$/d' /root/packages.txt | \
      xargs tlmgr install \
