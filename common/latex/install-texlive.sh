@@ -12,7 +12,7 @@ if [ "$tlversion" = "$default_version" ]; then
     # always use the mirror URL, we'd run into problems whenever we get
     # installer and signatures from different mirrors that are not 100%
     # in sync.
-    installer_url=$(curl -L -v -o /dev/null -w '%{url_effective}' http://mirror.ctan.org/systems/texlive/tlnet)
+    installer_url=http://mirror.math.princeton.edu/systems/texlive/tlnet
     repository=
 else
     installer_url="\
