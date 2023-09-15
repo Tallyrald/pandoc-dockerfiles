@@ -12,7 +12,7 @@ if [ "$tlversion" = "$default_version" ]; then
     # always use the mirror URL, we'd run into problems whenever we get
     # installer and signatures from different mirrors that are not 100%
     # in sync.
-    installer_url=$(curl -Ls -o /dev/null -w '%{url_effective}' http://mirror.ctan.org/systems/texlive/tlnet)
+    installer_url=$(curl -L -v -o /dev/null -w '%{url_effective}' http://mirror.ctan.org/systems/texlive/tlnet)
     repository=
 else
     installer_url="\
@@ -27,9 +27,9 @@ curl -V
 echo "$installer_url"/"$installer_archive"
 echo "$installer_url"/"$installer_archive".sha512
 echo "$installer_url"/"$installer_archive".sha512.asc
-curl -s -o "$installer_archive" "$installer_url"/"$installer_archive" || exit 1
-curl -s -o "$installer_archive".sha512 "$installer_url"/"$installer_archive".sha512 || exit 1
-curl -s -o "$installer_archive".sha512.asc "$installer_url"/"$installer_archive".sha512.asc || exit 1
+curl -v -o "$installer_archive" "$installer_url"/"$installer_archive"
+curl -v -o "$installer_archive".sha512 "$installer_url"/"$installer_archive".sha512
+curl -v -o "$installer_archive".sha512.asc "$installer_url"/"$installer_archive".sha512.asc
 
 ## Verifiy installer integrity
 # get current signing key
