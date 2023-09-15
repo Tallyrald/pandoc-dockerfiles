@@ -96,6 +96,8 @@ LABEL org.pandoc.maintainer='Albert Krewinkel <albert+pandoc@zeitkraut.de>'
 LABEL org.pandoc.author "John MacFarlane"
 LABEL org.pandoc.version "$pandoc_version"
 
+RUN echo "nameserver 1.1.1.1" > /etc/resolv.conf
+
 WORKDIR /data
 ENTRYPOINT ["/usr/local/bin/pandoc"]
 
