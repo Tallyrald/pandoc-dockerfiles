@@ -1,5 +1,5 @@
 # Base ##################################################################
-ARG base_image_version=3.16.7
+ARG base_image_version=3.18.3
 FROM alpine:$base_image_version AS alpine-builder-base
 WORKDIR /app
 
