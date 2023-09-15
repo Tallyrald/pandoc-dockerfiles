@@ -1,5 +1,5 @@
 # Base ##################################################################
-ARG base_image_version=3.18.3
+ARG base_image_version=3.16.7
 FROM alpine:$base_image_version AS alpine-builder-base
 WORKDIR /app
 
@@ -126,6 +126,7 @@ FROM alpine-core as alpine-latex
 
 # NOTE: to maintainers, please keep this listing alphabetical.
 RUN apk --no-cache add \
+        bind-tools \
         curl \
         fontconfig \
         freetype \
