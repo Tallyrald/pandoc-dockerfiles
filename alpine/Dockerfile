@@ -181,14 +181,14 @@ COPY common/latex/texlive.profile /root/texlive.profile
 COPY common/extra/packages.txt /root/extra_packages.txt
 COPY common/extra/requirements.txt /root/extra_requirements.txt
 
-RUN apk --no-cache add py-pip
+RUN apk --no-cache add pipx
 
 RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
     xargs tlmgr install \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
+RUN pipx --no-cache install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 ARG TEMPLATES_DIR=/.pandoc/templates

@@ -1,11 +1,11 @@
 # Base ##################################################################
-ARG base_image_version=lunar
+ARG base_image_version=jammy
 FROM ubuntu:$base_image_version AS ubuntu-builder-base
 WORKDIR /app
 
 ## Not sure why we have to repeat this, but apparently the arg is no
 ## longer set after FROM.
-ARG base_image_version=lunar
+ARG base_image_version=jammy
 ARG lua_version=5.4
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -q --no-allow-insecure-repositories update \
@@ -190,14 +190,14 @@ COPY common/extra/requirements.txt /root/extra_requirements.txt
 
 RUN apt-get -q --no-allow-insecure-repositories update \
   && apt-get install --assume-yes --no-install-recommends \
-        python3-pip
+        pipx
 
 RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
     xargs tlmgr install \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
+RUN pipx --no-cache install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 # Templates
