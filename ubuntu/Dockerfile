@@ -196,8 +196,9 @@ RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
   && rm -f /root/texlive.profile \
            /root/extra_packages.txt
 
-RUN python3 -m venv .venv && source .venv/bin/activate
-RUN pip3 --no-cache-dir install -r /root/extra_requirements.txt \
+RUN python3 -m venv .venv \
+  && . .venv/bin/activate \
+  && pip --no-cache-dir install -r /root/extra_requirements.txt \
   && rm -f /root/extra_requirements.txt
 
 # Templates
