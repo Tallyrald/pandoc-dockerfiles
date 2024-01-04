@@ -28,7 +28,7 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        libncurses5 \
        libtinfo5 \
        pkg-config=* \
-       zlib1g-dev=1:1.2.11.* \
+       zlib1g-dev=1:1.2.13.* \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GHCup, GHC, Cabal
@@ -42,7 +42,7 @@ RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $H
 RUN bash -c "source $HOME/.bashrc"
 
 # Use the same minor GHC version as Pandoc
-RUN ghcup install ghc --set 9.4.8
+RUN ghcup install ghc --set 9.2.5
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
