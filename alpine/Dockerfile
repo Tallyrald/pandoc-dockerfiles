@@ -1,5 +1,5 @@
 # Base ##################################################################
-ARG base_image_version=3.17.6
+ARG base_image_version=3.18.5
 FROM alpine:$base_image_version AS alpine-builder-base
 WORKDIR /app
 
@@ -80,6 +80,7 @@ RUN cabal v2-update \
       --disable-bench \
       --jobs \
       --constraint 'aeson ==2.1.2.1' \
+      --minimize-conflict-set \
       . $extra_packages
 
 # Cabal's exec stripping doesn't seem to work reliably, let's do it here.
