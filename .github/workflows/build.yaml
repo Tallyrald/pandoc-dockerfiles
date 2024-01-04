@@ -5,6 +5,7 @@ on:
     # Build and publish: configure build via commit message
     branches:
       - master
+      - testing3
     paths-ignore:
       - '.dockerignore'
       - '.github/FUNDING.yml'
@@ -135,18 +136,3 @@ jobs:
       - name: Test extra image
         if: ${{ matrix.stack != 'static' }}
         run: make test-extra
-
-      - name: Push
-        if: >-
-          (github.event_name == 'push' || github.event_name == 'schedule') &&
-          github.repository == 'pandoc/dockerfiles'
-        run: |
-          # Log into registry
-          echo "${{ secrets.DOCKER_HUB_TOKEN }}" |
-            docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-          make push-minimal
-          if [ "$STACK" != 'static' ]; then
-              make push-core
-              make push-latex
-              make push-extra
-          fi
