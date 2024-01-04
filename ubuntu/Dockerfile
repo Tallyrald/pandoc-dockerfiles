@@ -189,7 +189,7 @@ COPY common/extra/requirements.txt /root/extra_requirements.txt
 
 RUN apt-get -q --no-allow-insecure-repositories update \
   && apt-get install --assume-yes --no-install-recommends \
-        python3-pip
+        python3-pip python3-venv
 
 RUN sed -e 's/ *#.*$//' -e '/^ *$/d' /root/extra_packages.txt | \
     xargs tlmgr install \
