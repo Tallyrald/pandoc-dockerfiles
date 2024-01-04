@@ -40,8 +40,8 @@ RUN bash -c "echo export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH" >> $H
 RUN bash -c "source $HOME/.bashrc"
 
 # Use the same minor GHC version as Pandoc
-RUN ghcup install ghc --set 9.4
-RUN ghcup install cabal --set 2.4
+RUN ghcup install ghc --set 9.6
+RUN ghcup install cabal --set 3.10
 
 COPY cabal.root.config /root/.cabal/config
 RUN cabal --version \
