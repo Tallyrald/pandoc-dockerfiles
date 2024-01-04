@@ -28,7 +28,7 @@ RUN apt-get -q --no-allow-insecure-repositories update \
        libncurses5 \
        libtinfo5 \
        pkg-config=* \
-       zlib1g-dev=1:1.2.13.* \
+       zlib1g-dev=1:1.2.11.* \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GHCup, GHC, Cabal
